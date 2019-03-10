@@ -1,0 +1,4 @@
+name = Migration estimates
+description = Acquia estimation helper on migration from Drupal7.
+core = 7.x
+package = Acquia migrations
