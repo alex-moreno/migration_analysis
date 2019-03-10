@@ -9,12 +9,62 @@
 * Implements hook_drush_command().
 */
 function migration_estimates_drush_command() {
+  $items['get-migration-estimate'] = array(
+    'description' => 'Get estimation to migrate current site.',
+    'aliases' => array('gme'),
+  );
   $items['get-content-types'] = array(
     'description' => 'Get content types in the site.',
     'aliases' => array('gct'),
   );
 
   return $items;
+}
+
+/**
+ *
+ */
+function drush_migration_estimates_get_migration_estimate() {
+
+  drush_migration_estimates_get_modules();
+  drush_migration_estimates_get_content_types();
+  drush_migration_estimates_get_views();
+  drush_migration_estimates_get_blocks();
+
+}
+
+/**
+ *
+ */
+function drush_migration_estimates_get_views() {
+  $list_views = views_get_enabled_views();
+
+  foreach ($list_views as $index => $list_view) {
+    echo $index . PHP_EOL;
+  }
+
+  echo "Number of views in use: " . sizeof($list_views) . PHP_EOL;
+
+}
+
+/**
+ *
+ */
+function drush_migration_estimates_get_modules() {
+  $enabled_modules = module_list();
+
+  echo "Number of modules enabled: " . sizeof($enabled_modules) . PHP_EOL;
+}
+
+/**
+ *
+ */
+function drush_migration_estimates_get_blocks() {
+  module_load_include('inc', 'block', 'block.admin');
+  global $theme_key;
+  $blocks = block_admin_display_prepare_blocks($theme_key);
+
+  echo "Number of blocks used: " . sizeof($blocks) . PHP_EOL;
 }
 
 /**
