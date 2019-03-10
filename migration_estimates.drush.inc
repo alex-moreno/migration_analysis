@@ -83,7 +83,6 @@ function drush_migration_estimates_get_content_types() {
       $number_nodes = sizeof($nodes);
 
       $fields = get_content_type_fields($content_type_name);
-//      print_r($fields);
       $number_fields = sizeof($fields);
 
     }
